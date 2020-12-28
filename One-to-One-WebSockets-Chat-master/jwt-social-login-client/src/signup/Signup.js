@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, notification } from "antd";
+import { Form, Input, Button, notification,Radio } from "antd";
 import { DingtalkOutlined } from "@ant-design/icons";
 import { signup } from "../util/ApiUtil";
 import "./Signup.css";
@@ -44,6 +44,17 @@ const Signup = (props) => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
+
+        <Form.Item label="I am:"
+          name="gender"
+          rules={[{ required: true, message: "Please choose your gender!" }]}
+          >
+             <Radio.Group >
+              <Radio.Button  value="D">Daddy</Radio.Button>
+              <Radio.Button  value="B">Baby</Radio.Button>
+            </Radio.Group>
+        </Form.Item>
+
         <Form.Item
           name="name"
           rules={[{ required: true, message: "Please input your name!" }]}

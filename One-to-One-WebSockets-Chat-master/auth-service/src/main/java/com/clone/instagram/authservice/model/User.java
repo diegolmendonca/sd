@@ -1,5 +1,6 @@
 package com.clone.instagram.authservice.model;
 
+import com.clone.instagram.authservice.payload.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -61,6 +62,9 @@ public class User {
     @Size(max = 40)
     @Email
     private String email;
+
+    @NotBlank
+    private Gender gender;
 
     @CreatedDate
     private Instant createdAt;

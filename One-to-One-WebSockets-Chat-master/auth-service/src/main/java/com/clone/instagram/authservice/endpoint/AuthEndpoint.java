@@ -51,6 +51,7 @@ public class AuthEndpoint {
                 .username(payload.getUsername())
                 .email(payload.getEmail())
                 .password(payload.getPassword())
+                .gender(payload.getGender())
                 .userProfile(Profile
                         .builder()
                         .displayName(payload.getName())

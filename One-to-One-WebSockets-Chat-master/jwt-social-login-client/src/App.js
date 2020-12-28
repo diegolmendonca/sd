@@ -12,7 +12,7 @@ const App = (props) => {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" render={(props) => <Profile {...props} />} />
+          <Route exact path="/profile" render={(props) => <Profile {...props} />} />
           <Route
             exact
             path="/login"

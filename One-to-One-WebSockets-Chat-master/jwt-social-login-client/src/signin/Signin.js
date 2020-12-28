@@ -18,7 +18,7 @@ const Signin = (props) => {
 
   useEffect(() => {
     if (localStorage.getItem("accessToken") !== null) {
-      props.history.push("/");
+      props.history.push("/profile");
     }
     initFacebookLogin();
   }, []);
@@ -81,7 +81,7 @@ const Signin = (props) => {
     login(values)
       .then((response) => {
         localStorage.setItem("accessToken", response.accessToken);
-        props.history.push("/");
+        props.history.push("/profile");
         setLoading(false);
       })
       .catch((error) => {
