@@ -15,10 +15,6 @@ public class InstaUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        return userService
-                .findByUsername(username)
-                .map(InstaUserDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        return new InstaUserDetails(userService.findByUsername(username));
     }
 }

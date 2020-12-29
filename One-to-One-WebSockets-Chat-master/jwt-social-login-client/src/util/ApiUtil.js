@@ -52,6 +52,17 @@ export function signup(signupRequest) {
   });
 }
 
+
+export function updateUser(updateRequest, userID) {
+  return request({
+    url: AUTH_SERVICE + "/users/" + userID,
+    method: "PUT",
+    body: JSON.stringify(updateRequest),
+  });
+}
+
+
+
 export function getCurrentUser() {
   if (!localStorage.getItem("accessToken")) {
     return Promise.reject("No access token set.");

@@ -1,6 +1,7 @@
 package com.clone.instagram.authservice.config;
 
 import com.clone.instagram.authservice.model.InstaUserDetails;
+import com.clone.instagram.authservice.model.User;
 import com.clone.instagram.authservice.service.JwtTokenProvider;
 import com.clone.instagram.authservice.service.UserService;
 import io.jsonwebtoken.Claims;
@@ -60,21 +61,20 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
             Claims claims = tokenProvider.getClaimsFromJWT(token);
             String username = claims.getSubject();
 
-            UsernamePasswordAuthenticationToken auth =
-                    userService.findByUsername(username)
-                            .map(InstaUserDetails::new)
-                            .map(userDetails -> {
-                                UsernamePasswordAuthenticationToken authentication =
-                                        new UsernamePasswordAuthenticationToken(
-                                                userDetails, null, userDetails.getAuthorities());
-                                authentication
-                                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                                return authentication;
-                            })
-                            .orElse(null);
+            InstaUserDetails userdDetails = new InstaUserDetails(userService.findByUsername(username));
 
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            if (null != userdDetails) {
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                userdDetails, null, userdDetails.getAuthorities());
+                authentication
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            }
+
         } else {
             SecurityContextHolder.clearContext();
         }
