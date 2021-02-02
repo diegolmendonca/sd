@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import List from './MyList';
 import WithListLoading from './withListLoading';
+import axios from "axios";
+
 
 const Filedownload = () => {
 
@@ -13,11 +15,10 @@ const Filedownload = () => {
   useEffect(() => {
     setAppState({ loading: true });
     const apiUrl = `http://localhost:8081/photos`;
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((images) => {
-        setAppState({ loading: false, images: images });
-      });
+    axios.get(apiUrl).then((images) => {
+      const allImages = images.data;
+      setAppState({ loading: false, images: allImages });
+    });
   }, [setAppState]);
 
   return (
