@@ -47,7 +47,6 @@ const Profile = (props) => {
           description:
             "Thank you! You're successfully registered. Please Login to continue!",
         });
-        window.location.reload();
         props.history.push("/profile");
         setLoading(false);
       })

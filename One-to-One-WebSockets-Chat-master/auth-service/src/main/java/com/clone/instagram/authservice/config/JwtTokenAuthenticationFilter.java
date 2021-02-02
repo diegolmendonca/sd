@@ -39,45 +39,45 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        // 1. get the authentication header. Tokens are supposed to be passed in the authentication header
-        String header = request.getHeader(jwtConfig.getHeader());
-
-        // 2. validate the header and check the prefix
-        if(header == null || !header.startsWith(jwtConfig.getPrefix())) {
-            chain.doFilter(request, response);  		// If not valid, go to the next filter.
-            return;
-        }
-
-        // If there is no token provided and hence the user won't be authenticated.
-        // It's Ok. Maybe the user accessing a public path or asking for a token.
-
-        // All secured paths that needs a token are already defined and secured in config class.
-        // And If user tried to access without access token, then he won't be authenticated and an exception will be thrown.
-
-        // 3. Get the token
-        String token = header.replace(jwtConfig.getPrefix(), "");
-
-        if(tokenProvider.validateToken(token)) {
-            Claims claims = tokenProvider.getClaimsFromJWT(token);
-            String username = claims.getSubject();
-
-
-            InstaUserDetails userdDetails = new InstaUserDetails(userService.findByUsername(username));
-
-            if (null != userdDetails) {
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(
-                                userdDetails, null, userdDetails.getAuthorities());
-                authentication
-                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            }
-
-        } else {
-            SecurityContextHolder.clearContext();
-        }
+//        // 1. get the authentication header. Tokens are supposed to be passed in the authentication header
+//        String header = request.getHeader(jwtConfig.getHeader());
+//
+//        // 2. validate the header and check the prefix
+//        if(header == null || !header.startsWith(jwtConfig.getPrefix())) {
+//            chain.doFilter(request, response);  		// If not valid, go to the next filter.
+//            return;
+//        }
+//
+//        // If there is no token provided and hence the user won't be authenticated.
+//        // It's Ok. Maybe the user accessing a public path or asking for a token.
+//
+//        // All secured paths that needs a token are already defined and secured in config class.
+//        // And If user tried to access without access token, then he won't be authenticated and an exception will be thrown.
+//
+//        // 3. Get the token
+//        String token = header.replace(jwtConfig.getPrefix(), "");
+//
+//        if(tokenProvider.validateToken(token)) {
+//            Claims claims = tokenProvider.getClaimsFromJWT(token);
+//            String username = claims.getSubject();
+//
+//
+//            InstaUserDetails userdDetails = new InstaUserDetails(userService.findByUsername(username));
+//
+//            if (null != userdDetails) {
+//                UsernamePasswordAuthenticationToken authentication =
+//                        new UsernamePasswordAuthenticationToken(
+//                                userdDetails, null, userdDetails.getAuthorities());
+//                authentication
+//                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//
+//                SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//            }
+//
+//        } else {
+//            SecurityContextHolder.clearContext();
+//        }
 
         // go to the next filter in the filter chain
         chain.doFilter(request, response);

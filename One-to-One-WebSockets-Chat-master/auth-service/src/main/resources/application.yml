@@ -3,6 +3,11 @@ spring:
     mongodb:
       database: instaclone_auth
       port: 27017
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 server:
   port: 8081
@@ -25,3 +30,4 @@ feign:
         connectTimeout: 5000
         readTimeout: 5000
         loggerLevel: basic
+

@@ -3,6 +3,9 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Signin from "./signin/Signin";
 import Signup from "./signup/Signup";
 import Profile from "./profile/Profile";
+import FileUpload from "./image/FileUpload"
+import FileDownload from "./image/download/FileDownload"
+
 import Chat from "./chat/Chat";
 import "./App.css";
 
@@ -17,6 +20,17 @@ const App = (props) => {
             exact
             path="/login"
             render={(props) => <Signin {...props} />}
+          />
+            <Route
+            exact
+            path="/upload"
+            render={(props) => <FileUpload {...props} />}
+          />
+
+<Route
+            exact
+            path="/download"
+            render={(props) => <FileDownload {...props} />}
           />
           <Route
             exact
