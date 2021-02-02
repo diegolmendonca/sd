@@ -8,20 +8,20 @@ const MyList = (props) => {
     return (
         <ul>
             <h2 className='list-head'>Available Images</h2>
+            <div class="container">
+            <Image.PreviewGroup>
             {images.map((im) => {
                 var concat = 'data:image/jpeg;base64,' + im.image;
                 return (
-                    <div class="container">
-
-                        <Image.PreviewGroup>
                             <Image
                                 width={200}
                                 src={concat}
                             />
-                        </Image.PreviewGroup>
-                    </div>
+                  
                 );
             })}
+             </Image.PreviewGroup>
+             </div>
         </ul>
     );
 };
